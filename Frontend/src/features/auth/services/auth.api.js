@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const api = axios.create({
-    baseURL: "http://localhost:3306",
+    baseURL: "http://localhost:3000",
     withCredentials: true
 })
 
@@ -73,7 +73,7 @@ export async function getMe() {
     try {
 
         const response = await api.get(
-            "/api/auth/get_me"
+            "/api/auth/get-me"
         )
 
         return response.data

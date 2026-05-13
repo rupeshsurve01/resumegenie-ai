@@ -11,8 +11,11 @@ const Login = () => {
   const [Password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
-    e.priventDefault();
-    handleLogin(email, Password);
+    e.preventDefault();
+    const data = await handleLogin({ email, password: Password });
+    if (data?.user) {
+      navigate("/");
+    }
   };
 
   if (loading) {

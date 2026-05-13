@@ -5,7 +5,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    e.priventDefault();
+    e.preventDefault()
   };
 
   return (
