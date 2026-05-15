@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 
-/* ---------------- Technical Questions ---------------- */
-
 const technicalQuestionSchema = new mongoose.Schema(
   {
     question: {
@@ -21,8 +19,6 @@ const technicalQuestionSchema = new mongoose.Schema(
     _id: false,
   },
 );
-
-/* ---------------- Behavioral Questions ---------------- */
 
 const behavioralQuestionSchema = new mongoose.Schema(
   {
@@ -44,8 +40,6 @@ const behavioralQuestionSchema = new mongoose.Schema(
   },
 );
 
-/* ---------------- Skill Gap ---------------- */
-
 const skillGapSchema = new mongoose.Schema(
   {
     skill: {
@@ -62,8 +56,6 @@ const skillGapSchema = new mongoose.Schema(
     _id: false,
   },
 );
-
-/* ---------------- Preparation Plan ---------------- */
 
 const preparationPlanSchema = new mongoose.Schema(
   {
@@ -84,8 +76,6 @@ const preparationPlanSchema = new mongoose.Schema(
     _id: false,
   },
 );
-
-/* ---------------- Interview Report ---------------- */
 
 const interviewReportSchema = new mongoose.Schema(
   {
@@ -109,12 +99,13 @@ const interviewReportSchema = new mongoose.Schema(
     },
 
     technicalQuestions: [technicalQuestionSchema],
-
     behavioralQuestions: [behavioralQuestionSchema],
-
     skillGaps: [skillGapSchema],
-
     preparationPlan: [preparationPlanSchema],
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users"
+    }
   },
   {
     timestamps: true,

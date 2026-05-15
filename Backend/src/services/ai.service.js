@@ -21,11 +21,13 @@ async function invokeGeminiAi() {
 }
 
 const interviewReportSchema = z.object({
+
   matchScore: z
     .number()
     .describe(
       "A score between 0 and 100 indicating how well the candidate's profile matches the job describe",
     ),
+
   technicalQuestions: z
     .array(
       z.object({
@@ -45,6 +47,7 @@ const interviewReportSchema = z.object({
     .describe(
       "Technical questions that can be asked in the interview along with their intention and how to answer them",
     ),
+
   behavioralQuestions: z
     .array(
       z.object({
@@ -64,6 +67,7 @@ const interviewReportSchema = z.object({
     .describe(
       "Behavioral questions that can be asked in the interview along with their intention and how to answer them",
     ),
+
   skillGaps: z
     .array(
       z.object({
@@ -78,6 +82,7 @@ const interviewReportSchema = z.object({
     .describe(
       "List of skill gaps in the candidate's profile along with their severity",
     ),
+
   preparationPlan: z
     .array(
       z.object({
@@ -99,6 +104,7 @@ const interviewReportSchema = z.object({
     .describe(
       "A day-wise preparation plan for the candidate to follow in order to prepare for the interview effectively",
     ),
+    
   title: z
     .string()
     .describe(
@@ -106,27 +112,27 @@ const interviewReportSchema = z.object({
     ),
 });
 
-async function generateInterviewReport({ resume, selfDescription, jobDescription }) {
-
-
-    const prompt = `Generate an interview report for a candidate with the following details:
+async function generateInterviewReport({
+  resume,
+  selfDescription,
+  jobDescription,
+}) {
+  const prompt = `Generate an interview report for a candidate with the following details:
                         Resume: ${resume}
                         Self Description: ${selfDescription}
                         Job Description: ${jobDescription}
-`
+`;
 
-    const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
-        contents: prompt,
-        config: {
-            responseMimeType: "application/json",
-            responseSchema: zodToJsonSchema(interviewReportSchema),
-        }
-    })
+  const response = await ai.models.generateContent({
+    model: "gemini-3-flash-preview",
+    contents: prompt,
+    config: {
+      responseMimeType: "application/json",
+      responseSchema: zodToJsonSchema(interviewReportSchema),
+    },
+  });
 
-    return JSON.parse(response.text)
-
-
+  return JSON.parse(response.text);
 }
 
 module.exports = generateInterviewReport;
